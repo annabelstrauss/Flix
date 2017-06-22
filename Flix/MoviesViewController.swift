@@ -10,12 +10,13 @@ import UIKit
 import AlamofireImage
 
 class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var movies: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +31,12 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         // add refresh control to table view
         tableView.insertSubview(refreshControl, at: 0)
-
+        
         fetchMovies()
         
         activityIndicator.stopAnimating()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -48,7 +49,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     /*
      *This is where we set the contents of the cell
-    */
+     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
@@ -85,22 +86,28 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Configure session so that completion handler is executed on main UI thread
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            
-            // ... Use the new data to update the data source ...
-            let dataDictionary = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
-            //Re-Get the array of movies
-            let movies = dataDictionary["results"] as! [[String: Any]]
-            //Re-Store the movies in a property to use elsewhere
-            self.movies = movies
-            
-            
-            // Reload the tableView now that there is new data
-            self.tableView.reloadData()
-            
+            //if there's an error, show the error message
+            if error != nil {
+                self.showErrorMessage()
+            }
+            //if there's no error, display the data
+            else{
+                // ... Use the new data to update the data source ...
+                let dataDictionary = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+                //Re-Get the array of movies
+                let movies = dataDictionary["results"] as! [[String: Any]]
+                //Re-Store the movies in a property to use elsewhere
+                self.movies = movies
+                
+                // Reload the tableView now that there is new data
+                self.tableView.reloadData()
+            }
             // Tell the refreshControl to stop spinning
             self.refreshControl.endRefreshing()
+            
         }
         task.resume()
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -113,22 +120,38 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     /*
-    * This makes the grey selection go away when you go back to table view
-    */
+     * This makes the grey selection go away when you go back to table view
+     */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-
-
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+     * This shows the network error message if the network request fails
+     */
+    func showErrorMessage() {
+        let alertController = UIAlertController(title: "Cannot Get Movies", message: "Check your internet connection", preferredStyle: .alert)
+        // create an OK action
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            // handle response here. Doing nothing will dismiss the view.
+        }
+        // add the OK action to the alert controller
+        alertController.addAction(OKAction)
+        
+        //actually make the error message pop up
+        present(alertController, animated: true) {}
     }
-    */
-
+    
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
