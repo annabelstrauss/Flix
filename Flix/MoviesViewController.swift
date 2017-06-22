@@ -21,7 +21,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityIndicator.startAnimating()
+        activityIndicator.startAnimating() //starts the spinny wheel in center of screen
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -33,8 +33,6 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.insertSubview(refreshControl, at: 0)
         
         fetchMovies()
-        
-        activityIndicator.stopAnimating()
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,13 +67,13 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    //THIS IS PULL TO REFRESH
     // Makes a network request to get updated data
     // Updates the tableView with the new data
     // Hides the RefreshControl
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
-        activityIndicator.startAnimating()
+        activityIndicator.startAnimating() //starts the spinny wheel in center of screen
         fetchMovies()
-        activityIndicator.stopAnimating()
     }
     
     func fetchMovies() {
@@ -104,6 +102,8 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             // Tell the refreshControl to stop spinning
             self.refreshControl.endRefreshing()
+            //Tell the activityIndicator to stop spinning
+            self.activityIndicator.stopAnimating()
             
         }
         task.resume()

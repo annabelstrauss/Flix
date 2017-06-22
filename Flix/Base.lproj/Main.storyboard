@@ -130,11 +130,11 @@
             </objects>
             <point key="canvasLocation" x="2448.5" y="114.5"/>
         </scene>
-        <!--Item-->
+        <!--Now Playing-->
         <scene sceneID="8jh-FT-N9b">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e26-B6-FbT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="y3g-Ml-8Ed"/>
+                    <tabBarItem key="tabBarItem" title="Now Playing" image="now_playing_tabbar_item" id="y3g-Ml-8Ed"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HkR-jQ-Yg5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -160,6 +160,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="e26-B6-FbT" kind="relationship" relationship="viewControllers" id="xeL-3H-kow"/>
+                        <segue destination="UdL-M0-Ynz" kind="relationship" relationship="viewControllers" id="7Pl-er-sQK"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8ij-74-lxi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -175,12 +176,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="cEM-n2-IQJ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="93W-gU-dAC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="835" y="909"/>
+            <point key="canvasLocation" x="1421.5" y="908.5"/>
+        </scene>
+        <!--Superhero-->
+        <scene sceneID="bzf-Uo-Lsi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UdL-M0-Ynz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Superhero" image="superhero_tabbar_item" id="07S-91-THu"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pqg-le-yDb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bFD-m5-4ow" kind="relationship" relationship="rootViewController" id="wRh-t3-spC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mbl-uT-A5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="834.5" y="908.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="now_playing_tabbar_item" width="21" height="21"/>
+        <image name="superhero_tabbar_item" width="21" height="23"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
