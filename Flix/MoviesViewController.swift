@@ -96,6 +96,15 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         task.resume()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell //get this to find the index path
+        if let indexPath = tableView.indexPath(for: cell) {//get this to find the actual movie
+            let movie = movies[indexPath.row] //get the current movie
+            let detailViewController = segue.destination as! DetailViewController //tell it its destination
+            detailViewController.movie = movie //set the detailViewController's movie variable as the movie we just clicked on!
+        }
+    }
+    
 
 
     /*
