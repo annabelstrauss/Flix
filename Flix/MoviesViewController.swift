@@ -12,12 +12,15 @@ import AlamofireImage
 class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var movies: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityIndicator.startAnimating()
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -29,6 +32,8 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.insertSubview(refreshControl, at: 0)
 
         fetchMovies()
+        
+        activityIndicator.stopAnimating()
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,7 +72,9 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // Updates the tableView with the new data
     // Hides the RefreshControl
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        activityIndicator.startAnimating()
         fetchMovies()
+        activityIndicator.stopAnimating()
     }
     
     func fetchMovies() {
@@ -103,6 +110,13 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let detailViewController = segue.destination as! DetailViewController //tell it its destination
             detailViewController.movie = movie //set the detailViewController's movie variable as the movie we just clicked on!
         }
+    }
+    
+    /*
+    * This makes the grey selection go away when you go back to table view
+    */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 
