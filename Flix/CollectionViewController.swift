@@ -18,6 +18,7 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         super.viewDidLoad()
         
         collectionView.dataSource = self
+        collectionView.delegate = self
         
         fetchMovies()
         
@@ -69,6 +70,18 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
             
         }
         task.resume()
+        
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UICollectionViewCell
+        if let indexPath = collectionView.indexPath(for: cell) {//get this to find the actual movie
+            let movie = movies[indexPath.row] //get the current movie
+            let detailViewController = segue.destination as! DetailViewController //tell it its destination
+            detailViewController.movie = movie //set the detailViewController's movie variable as the movie we just clicked on!
+        }
+
         
     }
     

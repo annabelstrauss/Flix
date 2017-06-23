@@ -202,6 +202,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="superheroImageView" destination="EHq-sJ-5se" id="8MO-hN-c7Q"/>
+                                            <segue destination="9g0-OX-fFB" kind="push" id="dcR-W7-Yu2"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -247,4 +248,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="dcR-W7-Yu2"/>
+    </inferredMetricsTieBreakers>
 </document>
