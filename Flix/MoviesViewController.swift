@@ -9,12 +9,14 @@
 import UIKit
 import AlamofireImage
 
-class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var movies: [[String: Any]] = []
+    var filteredMovies: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
     
     
@@ -25,6 +27,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
         
         // Initialize a UIRefreshControl
         refreshControl = UIRefreshControl()
@@ -42,7 +45,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return filteredMovies.count
     }
     
     /*
@@ -52,7 +55,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
-        let movie = movies[indexPath.row]
+        let movie = filteredMovies[indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         
@@ -96,6 +99,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let movies = dataDictionary["results"] as! [[String: Any]]
                 //Re-Store the movies in a property to use elsewhere
                 self.movies = movies
+                self.filteredMovies = movies
                 
                 // Reload the tableView now that there is new data
                 self.tableView.reloadData()
@@ -140,6 +144,23 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         //actually make the error message pop up
         present(alertController, animated: true) {}
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchText.isEmpty {
+            filteredMovies = movies
+        } else {
+            
+            // creates smalles array of movies based on search text
+            filteredMovies = movies.filter { (movie: [String: Any]) -> Bool in
+                // If dataItem matches the searchText, return true to include it
+                let title = movie["title"] as! String
+                return title.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+            }
+        }
+        
+        tableView.reloadData()
     }
     
     

@@ -21,9 +21,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="DZa-v2-78p">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="113" id="SQI-vn-5k8" customClass="MovieCell" customModule="Flix" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="113"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="113"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SQI-vn-5k8" id="XcD-UV-DNJ">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="112.5"/>
@@ -70,6 +75,7 @@
                     <navigationItem key="navigationItem" title="Movies Now Playing" id="7ua-1C-uFs"/>
                     <connections>
                         <outlet property="activityIndicator" destination="xyi-Me-pgy" id="PWj-UH-Rgf"/>
+                        <outlet property="searchBar" destination="DZa-v2-78p" id="Vf5-Qw-gy3"/>
                         <outlet property="tableView" destination="7jq-h0-H6Y" id="1b7-4E-8ae"/>
                     </connections>
                 </viewController>
@@ -155,6 +161,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="gBu-Xq-udw" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="vda-gs-YG3">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
@@ -249,6 +256,6 @@
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="dcR-W7-Yu2"/>
+        <segue reference="Ejt-Ef-uej"/>
     </inferredMetricsTieBreakers>
 </document>
