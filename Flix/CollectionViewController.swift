@@ -13,9 +13,9 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    
     var movies: [[String: Any]] = []
     var filteredMovies: [[String: Any]] = []
+    var refreshControl: UIRefreshControl!
 
     
     override func viewDidLoad() {
@@ -33,6 +33,12 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         let interItemSpacingTotal = layout.minimumInteritemSpacing * (numCellsPerLine - 1)
         let width = collectionView.frame.size.width / numCellsPerLine - interItemSpacingTotal / numCellsPerLine
         layout.itemSize = CGSize(width: width, height: width * 3 / 2)
+        
+        // Initialize a UIRefreshControl
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        // add refresh control to table view
+        collectionView.insertSubview(refreshControl, at: 0)
         
         fetchMovies()
         
@@ -63,6 +69,14 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
         return cell
     }
     
+    //THIS IS PULL TO REFRESH
+    // Makes a network request to get updated data
+    // Updates the tableView with the new data
+    // Hides the RefreshControl
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        fetchMovies()
+    }
+    
     func fetchMovies() {
         // ... Create the URLRequest `myRequest` ...
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
@@ -83,6 +97,8 @@ class CollectionViewController: UIViewController, UICollectionViewDataSource, UI
             // Reload now that there is new data
             self.collectionView.reloadData()
             
+            // Tell the refreshControl to stop spinning
+            self.refreshControl.endRefreshing()
         }
         task.resume()
         
