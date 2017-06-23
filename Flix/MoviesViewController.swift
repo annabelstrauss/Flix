@@ -117,7 +117,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UITableViewCell //get this to find the index path
         if let indexPath = tableView.indexPath(for: cell) {//get this to find the actual movie
-            let movie = movies[indexPath.row] //get the current movie
+            let movie = filteredMovies[indexPath.row] //get the current movie
             let detailViewController = segue.destination as! DetailViewController //tell it its destination
             detailViewController.movie = movie //set the detailViewController's movie variable as the movie we just clicked on!
         }
@@ -146,13 +146,16 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         present(alertController, animated: true) {}
     }
     
+    /*
+     * This makes the search bar functional aka filters the movies
+     */
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if searchText.isEmpty {
             filteredMovies = movies
-        } else {
-            
-            // creates smalles array of movies based on search text
+        }
+        else {
+            // creates smaller array of movies based on search text
             filteredMovies = movies.filter { (movie: [String: Any]) -> Bool in
                 // If dataItem matches the searchText, return true to include it
                 let title = movie["title"] as! String
