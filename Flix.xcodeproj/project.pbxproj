@@ -12,6 +12,8 @@
 		E10805FC1EFB14E8007D3474 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10805FB1EFB14E8007D3474 /* MoviesViewController.swift */; };
 		E10805FE1EFB25E7007D3474 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10805FD1EFB25E7007D3474 /* MovieCell.swift */; };
 		E15160FE1EFC648F00382D55 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15160FD1EFC648F00382D55 /* DetailViewController.swift */; };
+		E15161001EFC8C1200382D55 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15160FF1EFC8C1200382D55 /* CollectionViewController.swift */; };
+		E15161021EFC8D7000382D55 /* SuperheroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15161011EFC8D7000382D55 /* SuperheroCell.swift */; };
 		E1BA22F01EFB106400A9FC09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA22EF1EFB106400A9FC09 /* AppDelegate.swift */; };
 		E1BA22F51EFB106400A9FC09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1BA22F31EFB106400A9FC09 /* Main.storyboard */; };
 		E1BA22F71EFB106400A9FC09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1BA22F61EFB106400A9FC09 /* Assets.xcassets */; };
@@ -50,6 +52,8 @@
 		E10805FB1EFB14E8007D3474 /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		E10805FD1EFB25E7007D3474 /* MovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		E15160FD1EFC648F00382D55 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		E15160FF1EFC8C1200382D55 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		E15161011EFC8D7000382D55 /* SuperheroCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuperheroCell.swift; sourceTree = "<group>"; };
 		E1BA22EC1EFB106400A9FC09 /* Flix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BA22EF1EFB106400A9FC09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1BA22F41EFB106400A9FC09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,6 +143,8 @@
 				E10805FB1EFB14E8007D3474 /* MoviesViewController.swift */,
 				E10805FD1EFB25E7007D3474 /* MovieCell.swift */,
 				E15160FD1EFC648F00382D55 /* DetailViewController.swift */,
+				E15160FF1EFC8C1200382D55 /* CollectionViewController.swift */,
+				E15161011EFC8D7000382D55 /* SuperheroCell.swift */,
 			);
 			path = Flix;
 			sourceTree = "<group>";
@@ -456,6 +462,8 @@
 				E10805FC1EFB14E8007D3474 /* MoviesViewController.swift in Sources */,
 				E10805FE1EFB25E7007D3474 /* MovieCell.swift in Sources */,
 				E15160FE1EFC648F00382D55 /* DetailViewController.swift in Sources */,
+				E15161001EFC8C1200382D55 /* CollectionViewController.swift in Sources */,
+				E15161021EFC8D7000382D55 /* SuperheroCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
