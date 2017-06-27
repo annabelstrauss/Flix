@@ -23,6 +23,9 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 50
+        
         activityIndicator.startAnimating() //starts the spinny wheel in center of screen
         
         tableView.dataSource = self
