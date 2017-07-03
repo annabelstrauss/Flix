@@ -15,8 +15,8 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var movies: [[String: Any]] = []
-    var filteredMovies: [[String: Any]] = []
+    var movies: [Movie] = []
+    var filteredMovies: [Movie] = []
     var refreshControl: UIRefreshControl!
     
     
@@ -58,62 +58,31 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
-        let movie = filteredMovies[indexPath.row]
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        
-        cell.titleLabel.text = title
-        cell.overviewLabel.text = overview
-        
-        let posterPathString = movie["poster_path"] as! String
-        let baseURLString = "https://image.tmdb.org/t/p/w500"
-        let posterURL = URL(string: baseURLString + posterPathString)!
-        cell.posterImageView.af_setImage(withURL: posterURL)
+        cell.movie = filteredMovies[indexPath.row]
         
         return cell
     }
     
     //THIS IS PULL TO REFRESH
-    // Makes a network request to get updated data
-    // Updates the tableView with the new data
-    // Hides the RefreshControl
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
         activityIndicator.startAnimating() //starts the spinny wheel in center of screen
         fetchMovies()
     }
     
     func fetchMovies() {
-        // ... Create the URLRequest `myRequest` ...
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         
-        // Configure session so that completion handler is executed on main UI thread
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            //if there's an error, show the error message
-            if error != nil {
-                self.showErrorMessage()
-            }
-            //if there's no error, display the data
-            else{
-                // ... Use the new data to update the data source ...
-                let dataDictionary = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
-                //Re-Get the array of movies
-                let movies = dataDictionary["results"] as! [[String: Any]]
-                //Re-Store the movies in a property to use elsewhere
-                self.movies = movies
+        MovieApiManager().nowPlayingMovies { (movies: [Movie]?, error: Error?) in
+            if let movies = movies {
                 self.filteredMovies = movies
-                
-                // Reload the tableView now that there is new data
+                self.movies = movies
                 self.tableView.reloadData()
             }
-            // Tell the refreshControl to stop spinning
-            self.refreshControl.endRefreshing()
-            //Tell the activityIndicator to stop spinning
-            self.activityIndicator.stopAnimating()
-            
         }
-        task.resume()
+        
+        // Tell the refreshControl to stop spinning
+        self.refreshControl.endRefreshing()
+        //Tell the activityIndicator to stop spinning
+        self.activityIndicator.stopAnimating()
         
     }
     
@@ -159,9 +128,9 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         else {
             // creates smaller array of movies based on search text
-            filteredMovies = movies.filter { (movie: [String: Any]) -> Bool in
+            filteredMovies = movies.filter { (movie: Movie) -> Bool in
                 // If dataItem matches the searchText, return true to include it
-                let title = movie["title"] as! String
+                let title = movie.title
                 return title.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
             }
         }
